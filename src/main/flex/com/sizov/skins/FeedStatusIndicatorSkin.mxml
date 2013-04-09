@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        minWidth="20" minHeight="20"
+        alpha.disabled="0.5">
+
+	<!-- states -->
+	<s:states>
+		<s:State name="running"/>
+		<s:State name="idle"/>
+		<s:State name="disabled"/>
+	</s:states>
+
+	<!-- border and fill -->
+	<s:Ellipse id="rect"
+	           top="0"
+	           right="0"
+	           bottom="0"
+	           left="0">
+		<s:fill>
+			<s:SolidColor color.idle="0xa10e01"
+			              color.running="0x008300"/>
+		</s:fill>
+		<s:stroke>
+			<s:SolidColorStroke color="0x333333"
+			                    weight="3"/>
+		</s:stroke>
+	</s:Ellipse>
+</s:Skin>

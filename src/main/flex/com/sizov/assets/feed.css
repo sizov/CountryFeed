@@ -1,0 +1,12 @@
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+@namespace layout "ats.mapping.view.layout.*";
+@namespace components "com.sizov.components.*";
+
+components|FeedStatusIndicator {
+	skinClass: ClassReference("com.sizov.skins.FeedStatusIndicatorSkin");
+}
+
+.importantLabel {
+	fontWeight: bold;
+}

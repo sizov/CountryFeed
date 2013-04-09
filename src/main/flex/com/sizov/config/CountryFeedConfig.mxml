@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fx:Object
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:parsley="http://www.spicefactory.org/parsley"
+	xmlns:mx="library://ns.adobe.com/flex/mx">
+
+	<fx:Script><![CDATA[
+		]]></fx:Script>
+
+	<!--TODO: Log-->
+
+	<fx:Declarations>
+
+		<!-- Presentation models -->
+		<parsley:Object type="com.sizov.model.VisualDataPM"/>
+		<parsley:Object type="com.sizov.model.ToolBarPM"/>
+		<parsley:Object type="com.sizov.model.StatisticsDataPM"/>
+
+		<!-- Managers -->
+		<parsley:Object type="com.sizov.components.LCDSFeedManager">
+			<parsley:Property name="consumer"
+			                  idRef="countryConsumer"/>
+			<parsley:Property name="responder"
+			                  idRef="countryResponder"/>
+		</parsley:Object>
+
+		<parsley:Object id="countryResponder"
+		                type="com.sizov.components.CountryFeedResponder"/>
+
+		<!--TODO: Move messaging configuration to external file-->
+
+		<!--Messaging-->
+		<parsley:Object id="countryConsumer"
+		                type="mx.messaging.Consumer">
+			<parsley:Property name="channelSet"
+			                  idRef="countryChannelSet"/>
+			<parsley:Property name="destination"
+			                  value="tdf.sampleviewingfeed"/>
+			<parsley:Property name="subtopic"
+			                  value="flex"/>
+		</parsley:Object>
+
+		<!-- TODO: if i;m not mistaken this is not simult use, but failover -->
+		<mx:ChannelSet id="countryChannelSet">
+			<mx:RTMPChannel url="rtmp://tourdeflex.adobe.com:2037"/>
+			<mx:AMFChannel url="http://tourdeflex.adobe.com:8080/lcds-samples/messagebroker/amflongpolling"/>
+			<mx:AMFChannel url="http://tourdeflex.adobe.com:8080/lcds-samples/messagebroker/amfpolling"/>
+		</mx:ChannelSet>
+
+	</fx:Declarations>
+
+</fx:Object>
