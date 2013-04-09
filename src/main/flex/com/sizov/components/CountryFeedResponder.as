@@ -1,6 +1,6 @@
 package com.sizov.components
 {
-	import com.sizov.MessageVO;
+	import com.sizov.vo.MessageVO;
 	import com.sizov.utils.LayoutManagerClientHelper;
 	import com.sizov.vo.CountryVO;
 

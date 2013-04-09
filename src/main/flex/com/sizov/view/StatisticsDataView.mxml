@@ -6,7 +6,7 @@
          xmlns:mx="library://ns.adobe.com/flex/mx">
 
 	<fx:Script><![CDATA[
-		import com.sizov.MessageVO;
+		import com.sizov.vo.MessageVO;
 		import com.sizov.model.StatisticsDataPM;
 
 		[Bindable]

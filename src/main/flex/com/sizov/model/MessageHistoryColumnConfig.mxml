@@ -4,7 +4,7 @@
 	xmlns:s="library://ns.adobe.com/flex/spark">
 
 	<fx:Script><![CDATA[
-		import com.sizov.MessageVO;
+		import com.sizov.vo.MessageVO;
 		]]></fx:Script>
 
 	<fx:Declarations>

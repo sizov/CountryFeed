@@ -1,6 +1,6 @@
 package com.sizov.vo
 {
-	import com.sizov.MessageVO;
+	import com.sizov.vo.MessageVO;
 	import com.sizov.utils.TestUtils;
 
 	import org.flexunit.asserts.assertNull;

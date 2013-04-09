@@ -1,4 +1,4 @@
-package com.sizov
+package com.sizov.vo
 {
 	import mx.messaging.messages.IMessage;
 
