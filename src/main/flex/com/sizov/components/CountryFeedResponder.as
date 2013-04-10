@@ -43,10 +43,11 @@ package com.sizov.components
 		private var layoutManagerClientHelper:LayoutManagerClientHelper;
 
 		/**
-		 * Last event that is received by responder.
+		 * Last events received by responder.
 		 */
-		private var lastMessageEvent:MessageEvent;
-		private var lastMessageEventDirty:Boolean;
+		private var lastMessageEvents:Array = [];
+
+		private var lastMessageEventsDirty:Boolean;
 
 		public function CountryFeedResponder()
 		{
@@ -64,28 +65,30 @@ package com.sizov.components
 
 		public function messageHandler(event:MessageEvent):void
 		{
-			if (event == lastMessageEvent)return;
-
-			lastMessageEvent = event;
-			lastMessageEventDirty = true;
+			lastMessageEvents.push(event);
+			lastMessageEventsDirty = true;
 
 			layoutManagerClientHelper.invalidateProperties();
 		}
 
 		private function commitProperties():void
 		{
-			if (lastMessageEventDirty) {
-				lastMessageEventDirty = false;
-				handleNewMessage(lastMessageEvent);
+			if (lastMessageEventsDirty) {
+				handleNewMessages(lastMessageEvents);
+
+				lastMessageEventsDirty = false;
+				lastMessageEvents = [];
 			}
 		}
 
-		private function handleNewMessage(event:MessageEvent):void
+		private function handleNewMessages(messages:Array):void
 		{
-			processNewCountryCode(event.message.body);
+			for each(var event:MessageEvent in messages) {
+				processNewCountry(event.message.body);
+			}
 		}
 
-		public function processNewCountryCode(countryData:Object):void
+		public function processNewCountry(countryData:Object):void
 		{
 			const FIELD_COUNTRY:String = "country";
 			const FIELD_CITY:String = "city";

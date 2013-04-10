@@ -32,7 +32,7 @@ package com.sizov.components
 		{
 			var asyncHandler:Function = Async.asyncHandler(this, firstMessageHandler, 500, null, handleTimeout);
 			responder.addEventListener(CountryFeedResponder.FIRST_MESSAGE_RECEIVED, asyncHandler, false, 0, true);
-			responder.processNewCountryCode({country:"RU",city:"Moskow"});
+			responder.processNewCountry({country:"RU",city:"Moskow"});
 		}
 
 		protected function firstMessageHandler(event:Event, passThroughData:Object):void
@@ -47,12 +47,12 @@ package com.sizov.components
 		[Test]
 		public function testProcessNewCountryCode():void
 		{
-			responder.processNewCountryCode({country:"UA", city:"Kiev"});
-			responder.processNewCountryCode({country:"UA", city:"Odessa"});
-			responder.processNewCountryCode({country:"UA", city:"Kiev"});
+			responder.processNewCountry({country:"UA", city:"Kiev"});
+			responder.processNewCountry({country:"UA", city:"Odessa"});
+			responder.processNewCountry({country:"UA", city:"Kiev"});
 
-			responder.processNewCountryCode({country:"UK", city:"London"});
-			responder.processNewCountryCode({country:"UK", city:"Glasgow"});
+			responder.processNewCountry({country:"UK", city:"London"});
+			responder.processNewCountry({country:"UK", city:"Glasgow"});
 
 			assertEquals("There should be 5 messages in total received", 5, responder.messageHistory.length);
 			assertEquals("There should be 2 CountryVO instances", 2, responder.feedItems.length);
