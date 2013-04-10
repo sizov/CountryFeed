@@ -22,6 +22,8 @@
 			              dataField="{MessageVO.FIELD_DATE}"/>
 			<s:GridColumn headerText="Country"
 			              dataField="{MessageVO.FIELD_COUNTRY_CODE}"/>
+			<s:GridColumn headerText="City"
+			              dataField="{MessageVO.FIELD_COUNTRY_CITY}"/>
 		</s:ArrayList>
 	</fx:Declarations>
 

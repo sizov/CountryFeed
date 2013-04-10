@@ -29,12 +29,18 @@ package com.sizov.components
 		private var hoursStorage:String;
 		private var secondStorage:String;
 
+		private var timerDisplayDirty:Boolean;
+		private var dateToDisplay:Date;
+
+		public function TimerDisplay()
+		{
+			initTimer();
+		}
+
 		private function initTimer():void
 		{
 			timer = new Timer(TIMER_INTERVAL);
 			timer.addEventListener(TimerEvent.TIMER, timerHandler);
-
-			updateTimeDisplay(null);
 		}
 
 		private function timerHandler(evt:TimerEvent):void
@@ -54,34 +60,27 @@ package com.sizov.components
 		{
 			if (isRunning) return;
 
-			if(!timer){
-				initTimer();
-			}
-
 			_isRunning = true;
+			dispatchEvent(new Event("isRunningChanged"));
 
 			reStartTimer();
-			updateTimeDisplay(new Date(0));
+
+			dateToDisplay = new Date(0);
+			timerDisplayDirty = true;
 
 			invalidateSkinState();
-
-			dispatchEvent(new Event("isRunningChanged"));
 		}
 
 		public function stop():void
 		{
 			if (!isRunning) return;
 
-			if(!timer){
-				initTimer();
-			}
-
 			_isRunning = false;
+			dispatchEvent(new Event("isRunningChanged"));
 
 			stopTimer();
-			updateTimeDisplay(null);
-
-			dispatchEvent(new Event("isRunningChanged"));
+			dateToDisplay = null;
+			timerDisplayDirty = true;
 
 			invalidateSkinState();
 		}
@@ -96,6 +95,16 @@ package com.sizov.components
 		private function stopTimer():void
 		{
 			timer.stop();
+		}
+
+		override protected function commitProperties():void
+		{
+			super.commitProperties();
+
+			if (timerDisplayDirty) {
+				timerDisplayDirty = false;
+				updateTimeDisplay(dateToDisplay);
+			}
 		}
 
 		override protected function getCurrentSkinState():String

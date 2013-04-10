@@ -9,8 +9,6 @@ package com.sizov.model.presentation
 		[Inject]
 		public var feedManager:IFeedManager;
 
-		//TODO: maybe connect only to feedmanager.responder
-
 		[Inject]
 		public var countryFeedResponder:CountryFeedResponder;
 	}

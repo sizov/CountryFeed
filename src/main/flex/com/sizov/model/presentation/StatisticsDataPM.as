@@ -11,6 +11,5 @@ package com.sizov.model.presentation
 
 		[Inject]
 		public var countryFeedResponder:CountryFeedResponder;
-
 	}
 }

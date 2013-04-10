@@ -26,7 +26,7 @@ package com.sizov.components
 				throw new IllegalOperationError("Consumer can't be null");
 			}
 
-			subscribe();
+			subscribeConsumer();
 
 			_isRunning = true;
 
@@ -37,14 +37,14 @@ package com.sizov.components
 		{
 			if (!isRunning) return;
 
-			unsubscribe();
+			unsubscribeConsumer();
 
 			_isRunning = false;
 
 			dispatchEvent(new FeedEvent(FeedEvent.FEED_STOPPED));
 		}
 
-		private function subscribe():void
+		private function subscribeConsumer():void
 		{
 			consumer.subscribe();
 
@@ -53,7 +53,7 @@ package com.sizov.components
 			}
 		}
 
-		private function unsubscribe():void
+		private function unsubscribeConsumer():void
 		{
 			consumer.unsubscribe();
 

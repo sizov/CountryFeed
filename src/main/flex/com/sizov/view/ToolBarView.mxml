@@ -14,9 +14,7 @@
 
 		private function model_injectionCompleteHandler(event:Event):void
 		{
-			//TODO: what if feed responder got reset?
-
-			model.countryFeedResponder.addEventListener(CountryFeedResponder.FIRST_MESSAGE_RECEIVED_EVENT,
+			model.countryFeedResponder.addEventListener(CountryFeedResponder.FIRST_MESSAGE_RECEIVED,
 				firstMessageReceivedHandler);
 			model.feedManager.addEventListener(FeedEvent.FEED_STARTED, feedStartedHandler);
 		}

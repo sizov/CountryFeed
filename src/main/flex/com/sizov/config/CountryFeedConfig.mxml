@@ -4,11 +4,6 @@
 	xmlns:parsley="http://www.spicefactory.org/parsley"
 	xmlns:mx="library://ns.adobe.com/flex/mx">
 
-	<fx:Script><![CDATA[
-		]]></fx:Script>
-
-	<!--TODO: Log-->
-
 	<fx:Declarations>
 
 		<!-- Presentation models -->
@@ -23,9 +18,14 @@
 			<parsley:Property name="responder"
 			                  idRef="countryResponder"/>
 		</parsley:Object>
-
 		<parsley:Object id="countryResponder"
 		                type="com.sizov.components.CountryFeedResponder"/>
+
+		<!-- Dynamic commands -->
+		<parsley:DynamicCommand type="com.sizov.commands.StartFeedCommand"
+		                        messageType="com.sizov.messages.StartFeedMessage"/>
+		<parsley:DynamicCommand type="com.sizov.commands.StopFeedCommand"
+		                        messageType="com.sizov.messages.StopFeedMessage"/>
 
 		<!--TODO: Move messaging configuration to external file-->
 
@@ -40,7 +40,6 @@
 			                  value="flex"/>
 		</parsley:Object>
 
-		<!-- TODO: if i;m not mistaken this is not simult use, but failover -->
 		<mx:ChannelSet id="countryChannelSet">
 			<mx:RTMPChannel url="rtmp://tourdeflex.adobe.com:2037"/>
 			<mx:AMFChannel url="http://tourdeflex.adobe.com:8080/lcds-samples/messagebroker/amflongpolling"/>
@@ -48,5 +47,4 @@
 		</mx:ChannelSet>
 
 	</fx:Declarations>
-
 </fx:Object>

@@ -2,10 +2,9 @@ package com.sizov.model.presentation
 {
 	import com.sizov.components.CountryFeedResponder;
 	import com.sizov.components.IFeedManager;
+	import com.sizov.messages.StartFeedMessage;
+	import com.sizov.messages.StopFeedMessage;
 
-	import flash.events.Event;
-
-	[Event("feedStarted")]
 	[Bindable]
 	public class ToolBarPM
 	{
@@ -15,15 +14,17 @@ package com.sizov.model.presentation
 		[Inject]
 		public var countryFeedResponder:CountryFeedResponder;
 
+		[MessageDispatcher]
+		public var dispatcher:Function;
+
 		public function startFeed():void
 		{
-			countryFeedResponder.resetFeedItems();
-			feedManager.start();
+			dispatcher(new StartFeedMessage());
 		}
 
 		public function stopFeed():void
 		{
-			feedManager.stop();
+			dispatcher(new StopFeedMessage());
 		}
 	}
 }
