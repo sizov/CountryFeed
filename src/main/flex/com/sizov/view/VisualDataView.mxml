@@ -5,7 +5,7 @@
          xmlns:parsley="http://www.spicefactory.org/parsley">
 
 	<fx:Script><![CDATA[
-		import com.sizov.model.VisualDataPM;
+		import com.sizov.model.presentation.VisualDataPM;
 		import com.sizov.vo.CountryVO;
 
 		[Bindable]

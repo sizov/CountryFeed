@@ -1,4 +1,4 @@
-package com.sizov.model
+package com.sizov.model.presentation
 {
 	import com.sizov.components.CountryFeedResponder;
 	import com.sizov.components.IFeedManager;

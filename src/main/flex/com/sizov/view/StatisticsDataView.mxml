@@ -7,7 +7,7 @@
 
 	<fx:Script><![CDATA[
 		import com.sizov.vo.MessageVO;
-		import com.sizov.model.StatisticsDataPM;
+		import com.sizov.model.presentation.StatisticsDataPM;
 
 		[Bindable]
 		public var model:StatisticsDataPM;

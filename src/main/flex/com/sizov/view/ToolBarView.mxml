@@ -5,16 +5,38 @@
          xmlns:components="com.sizov.components.*">
 
 	<fx:Script><![CDATA[
-		import com.sizov.model.ToolBarPM;
+		import com.sizov.components.CountryFeedResponder;
+		import com.sizov.events.FeedEvent;
+		import com.sizov.model.presentation.ToolBarPM;
 
 		[Bindable]
 		public var model:ToolBarPM;
+
+		private function model_injectionCompleteHandler(event:Event):void
+		{
+			//TODO: what if feed responder got reset?
+
+			model.countryFeedResponder.addEventListener(CountryFeedResponder.FIRST_MESSAGE_RECEIVED_EVENT,
+				firstMessageReceivedHandler);
+			model.feedManager.addEventListener(FeedEvent.FEED_STARTED, feedStartedHandler);
+		}
+
+		private function firstMessageReceivedHandler(event:Event):void
+		{
+			timerDisplay.start();
+		}
+
+		private function feedStartedHandler(event:Event):void
+		{
+			timerDisplay.stop();
+		}
 		]]></fx:Script>
 
 	<fx:Declarations>
 		<parsley:FastInject
 			property="model"
-			type="{ToolBarPM}"/>
+			type="{ToolBarPM}"
+			injectionComplete="model_injectionCompleteHandler(event)"/>
 	</fx:Declarations>
 
 	<s:layout>
@@ -34,6 +56,8 @@
 	<s:HGroup verticalAlign="middle">
 		<s:Label text="Feed status:"/>
 		<components:FeedStatusIndicator isRunning="{model.feedManager.isRunning}"/>
+		<s:Label text="Time since first message:"/>
+		<components:TimerDisplay id="timerDisplay"/>
 	</s:HGroup>
 
 </s:Group>

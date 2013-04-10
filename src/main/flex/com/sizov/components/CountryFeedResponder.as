@@ -13,9 +13,11 @@ package com.sizov.components
 	import mx.messaging.events.ChannelFaultEvent;
 	import mx.messaging.events.MessageEvent;
 
+	[Event("firstMessageReceived")]
 	public class CountryFeedResponder extends EventDispatcher implements IFeedManagerResponder
 	{
-		private static const FEED_ITEMS_CHANGED:String = "feedItemsChanged";
+		public static const FIRST_MESSAGE_RECEIVED_EVENT:String = "firstMessageReceived";
+		public static const FEED_ITEMS_CHANGED_EVENT:String = "feedItemsChanged";
 
 		/**
 		 * Accumulation of messages.
@@ -65,18 +67,19 @@ package com.sizov.components
 		{
 			if (lastMessageEventDirty) {
 				lastMessageEventDirty = false;
-				handlerNewMessageEvent(lastMessageEvent);
+				newMessageEventHandler(lastMessageEvent);
 			}
 		}
 
-		private function handlerNewMessageEvent(event:MessageEvent):void
+		private function newMessageEventHandler(event:MessageEvent):void
 		{
 			var countryCode:String = event.message.body.country;
 			var countryVO:CountryVO = new CountryVO();
 			countryVO.countryCode = countryCode;
 
 			if (!firstMessage) {
-				firstMessage = new MessageVO(event.message, new Date(),countryCode);
+				firstMessage = new MessageVO(event.message, new Date(), countryCode);
+				dispatchEvent(new Event(FIRST_MESSAGE_RECEIVED_EVENT));
 			}
 
 			lastMessage = new MessageVO(event.message, new Date(), countryCode);
@@ -90,7 +93,7 @@ package com.sizov.components
 
 		public function channelFaultHandler(event:ChannelFaultEvent):void
 		{
-			Alert("Fault");
+			Alert("Channel fault");
 		}
 
 		public function resetFeedItems():void
@@ -101,7 +104,7 @@ package com.sizov.components
 			lastMessage = null;
 
 			_feedItems = new ArrayCollection();
-			dispatchEvent(new Event(FEED_ITEMS_CHANGED));
+			dispatchEvent(new Event(FEED_ITEMS_CHANGED_EVENT));
 		}
 
 		/*============================================================*/

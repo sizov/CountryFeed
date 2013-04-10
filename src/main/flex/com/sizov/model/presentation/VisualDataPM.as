@@ -1,26 +1,17 @@
-package com.sizov.model
+package com.sizov.model.presentation
 {
 	import com.sizov.components.CountryFeedResponder;
 	import com.sizov.components.IFeedManager;
 
 	[Bindable]
-	public class ToolBarPM
+	public class VisualDataPM
 	{
 		[Inject]
 		public var feedManager:IFeedManager;
 
+		//TODO: maybe connect only to feedmanager.responder
+
 		[Inject]
 		public var countryFeedResponder:CountryFeedResponder;
-
-		public function startFeed():void
-		{
-			countryFeedResponder.resetFeedItems();
-			feedManager.start();
-		}
-
-		public function stopFeed():void
-		{
-			feedManager.stop();
-		}
 	}
 }

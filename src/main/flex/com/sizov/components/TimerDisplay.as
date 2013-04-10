@@ -1,0 +1,163 @@
+package com.sizov.components
+{
+	import flash.events.Event;
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;
+	import flash.utils.getTimer;
+
+	import spark.components.Label;
+	import spark.components.supportClasses.SkinnableComponent;
+
+	[SkinState("running")]
+	[SkinState("idle")]
+	public class TimerDisplay extends SkinnableComponent
+	{
+		private static const TIMER_INTERVAL:int = 1000;
+
+		[SkinPart(required=true)]
+		public var hoursDisplay:Label;
+
+		[SkinPart(required=true)]
+		public var minuteDisplay:Label;
+
+		[SkinPart(required=true)]
+		public var secondDisplay:Label;
+
+		private var timerAtStart:int = 0;
+		private var timer:Timer;
+		private var minuteStorage:String;
+		private var hoursStorage:String;
+		private var secondStorage:String;
+
+		private function initTimer():void
+		{
+			timer = new Timer(TIMER_INTERVAL);
+			timer.addEventListener(TimerEvent.TIMER, timerHandler);
+
+			updateTimeDisplay(null);
+		}
+
+		private function timerHandler(evt:TimerEvent):void
+		{
+			updateTimeDisplay(new Date(getTimer() - timerAtStart));
+		}
+
+		private var _isRunning:Boolean;
+
+		[Bindable("isRunningChanged")]
+		public function get isRunning():Boolean
+		{
+			return _isRunning;
+		}
+
+		public function start():void
+		{
+			if (isRunning) return;
+
+			if(!timer){
+				initTimer();
+			}
+
+			_isRunning = true;
+
+			reStartTimer();
+			updateTimeDisplay(new Date(0));
+
+			invalidateSkinState();
+
+			dispatchEvent(new Event("isRunningChanged"));
+		}
+
+		public function stop():void
+		{
+			if (!isRunning) return;
+
+			if(!timer){
+				initTimer();
+			}
+
+			_isRunning = false;
+
+			stopTimer();
+			updateTimeDisplay(null);
+
+			dispatchEvent(new Event("isRunningChanged"));
+
+			invalidateSkinState();
+		}
+
+		private function reStartTimer():void
+		{
+			timerAtStart = getTimer();
+			timer.reset();
+			timer.start();
+		}
+
+		private function stopTimer():void
+		{
+			timer.stop();
+		}
+
+		override protected function getCurrentSkinState():String
+		{
+			if (isRunning) {
+				return "running";
+			}
+			else {
+				return "idle";
+			}
+		}
+
+
+		override protected function partAdded(partName:String, instance:Object):void
+		{
+			super.partAdded(partName, instance);
+
+			if (instance == hoursDisplay) {
+				hoursDisplay.text = hoursStorage;
+			}
+
+			if (instance == minuteDisplay) {
+				minuteDisplay.text = minuteStorage;
+			}
+
+			if (instance == secondDisplay) {
+				secondDisplay.text = secondStorage;
+			}
+		}
+
+		private function updateTimeDisplay(dateToDisplay:Date):void
+		{
+			var hours:Number = dateToDisplay ? dateToDisplay.hours : NaN;
+			var minutes:Number = dateToDisplay ? dateToDisplay.minutes : NaN;
+			var seconds:Number = dateToDisplay ? dateToDisplay.seconds : NaN;
+
+			if (!hoursDisplay) {
+				hoursStorage = fullDigitConvertor(hours);
+			}
+			else {
+				hoursDisplay.text = fullDigitConvertor(hours);
+			}
+
+			if (!minuteDisplay) {
+				minuteStorage = fullDigitConvertor(minutes);
+			}
+			else {
+				minuteDisplay.text = fullDigitConvertor(minutes);
+			}
+
+			if (!secondDisplay) {
+				secondStorage = fullDigitConvertor(seconds);
+			}
+			else {
+				secondDisplay.text = fullDigitConvertor(seconds);
+			}
+		}
+
+		private static function fullDigitConvertor(number:Number):String
+		{
+			if (isNaN(number)) return "-";
+			return (number < 10) ? '0' + String(number) : String(number);
+		}
+	}
+}

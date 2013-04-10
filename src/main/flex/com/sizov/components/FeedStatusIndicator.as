@@ -1,5 +1,7 @@
 package com.sizov.components
 {
+	import flash.events.Event;
+
 	import spark.components.supportClasses.SkinnableComponent;
 
 	[SkinState("running")]
@@ -8,6 +10,7 @@ package com.sizov.components
 	{
 		private var _isRunning:Boolean;
 
+		[Bindable("isRunningChanged")]
 		public function get isRunning():Boolean
 		{
 			return _isRunning;
@@ -18,6 +21,8 @@ package com.sizov.components
 			if (value == isRunning) return;
 
 			_isRunning = value;
+
+			dispatchEvent(new Event("isRunningChanged"));
 
 			invalidateSkinState();
 		}

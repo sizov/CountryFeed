@@ -1,7 +1,8 @@
 package com.sizov.components
 {
+	import com.sizov.events.FeedEvent;
+
 	import flash.errors.IllegalOperationError;
-	import flash.events.Event;
 	import flash.events.EventDispatcher;
 
 	import mx.messaging.Consumer;
@@ -11,11 +12,11 @@ package com.sizov.components
 	import org.spicefactory.lib.logging.LogContext;
 	import org.spicefactory.lib.logging.Logger;
 
+	[Event("feedStarted")]
+	[Event("feedStopped")]
 	public class LCDSFeedManager extends EventDispatcher implements IFeedManager
 	{
 		private static const LOG:Logger = LogContext.getLogger(LCDSFeedManager);
-
-		private static const STATE_CHANGED:String = "stateChanged";
 
 		public function start():void
 		{
@@ -29,7 +30,7 @@ package com.sizov.components
 
 			_isRunning = true;
 
-			dispatchEvent(new Event(STATE_CHANGED));
+			dispatchEvent(new FeedEvent(FeedEvent.FEED_STARTED));
 		}
 
 		public function stop():void
@@ -40,7 +41,7 @@ package com.sizov.components
 
 			_isRunning = false;
 
-			dispatchEvent(new Event(STATE_CHANGED));
+			dispatchEvent(new FeedEvent(FeedEvent.FEED_STOPPED));
 		}
 
 		private function subscribe():void
@@ -66,7 +67,8 @@ package com.sizov.components
 		/*============================================================*/
 		private var _isRunning:Boolean;
 
-		[Bindable("stateChanged")]
+		[Bindable("feedStarted")]
+		[Bindable("feedStopped")]
 		public function get isRunning():Boolean
 		{
 			return _isRunning;

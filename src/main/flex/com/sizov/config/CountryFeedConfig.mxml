@@ -12,9 +12,9 @@
 	<fx:Declarations>
 
 		<!-- Presentation models -->
-		<parsley:Object type="com.sizov.model.VisualDataPM"/>
-		<parsley:Object type="com.sizov.model.ToolBarPM"/>
-		<parsley:Object type="com.sizov.model.StatisticsDataPM"/>
+		<parsley:Object type="com.sizov.model.presentation.VisualDataPM"/>
+		<parsley:Object type="com.sizov.model.presentation.ToolBarPM"/>
+		<parsley:Object type="com.sizov.model.presentation.StatisticsDataPM"/>
 
 		<!-- Managers -->
 		<parsley:Object type="com.sizov.components.LCDSFeedManager">

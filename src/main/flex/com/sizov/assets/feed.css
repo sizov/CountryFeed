@@ -7,6 +7,10 @@ components|FeedStatusIndicator {
 	skinClass: ClassReference("com.sizov.skins.FeedStatusIndicatorSkin");
 }
 
+components|TimerDisplay {
+	skinClass: ClassReference("com.sizov.skins.TimerDisplaySkin");
+}
+
 .importantLabel {
 	fontWeight: bold;
 }
