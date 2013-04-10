@@ -7,10 +7,10 @@
 	<s:layout>
 		<s:VerticalLayout
 			horizontalAlign="center"
-			paddingRight="20"
-			paddingBottom="20"
-			paddingTop="20"
-			paddingLeft="20"/>
+			paddingRight="10"
+			paddingBottom="10"
+			paddingTop="10"
+			paddingLeft="10"/>
 	</s:layout>
 
 	<view:ToolBarView width="100%"/>

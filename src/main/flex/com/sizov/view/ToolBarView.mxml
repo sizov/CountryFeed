@@ -43,7 +43,8 @@
 
 	<s:Button label="Start Feed"
 	          click="model.startFeed()"
-	          enabled="{!model.feedManager.isRunning}"/>
+	          enabled="{!model.feedManager.isRunning}"
+	          height="30"/>
 
 	<s:Button label="Stop Feed"
 	          click="model.stopFeed()"
