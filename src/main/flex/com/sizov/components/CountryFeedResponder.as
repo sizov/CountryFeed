@@ -125,7 +125,7 @@ package com.sizov.components
 
 		public function channelFaultHandler(event:ChannelFaultEvent):void
 		{
-			Alert("Channel fault");
+			Alert.show("Channel fault");
 		}
 
 		public function resetFeedItems():void
